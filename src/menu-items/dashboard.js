@@ -21,15 +21,15 @@ const dashboard = {
             id: 'default',
             title: <FormattedMessage id="default" />,
             type: 'item',
-            url: '/dashboard/default',
+            url: '/dashboard/sample-page',
             icon: icons.IconDashboard,
             breadcrumbs: false
         },
         {
-            id: 'analytics',
-            title: <FormattedMessage id="analytics" />,
+            id: 'fileinput',
+            title: <FormattedMessage id="fileinput" />,
             type: 'item',
-            url: '/dashboard/analytics',
+            url: '/dashboard/file-input',
             icon: icons.IconDeviceAnalytics,
             breadcrumbs: false
         }

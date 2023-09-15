@@ -1,16 +1,14 @@
 // material-ui
 import { useTheme } from '@mui/material/styles';
-import { Button, CardMedia, Container, Grid, Link, Stack, Typography } from '@mui/material';
-
-// project import
-import AnimateButton from 'ui-component/extended/AnimateButton';
+import { Button, CardMedia, Container, Grid, Link, Stack, Typography, CardContent } from '@mui/material';
 
 // assets
+import SubCard from 'ui-component/cards/SubCard';
+import homepageImg from 'assets/images/landing/homepageimg.jpeg';
 import { IconCircleCheck } from '@tabler/icons';
-import LayersTwoToneIcon from '@mui/icons-material/LayersTwoTone';
-
-import LayerLeft from 'assets/images/landing/customization-left.png';
-import LayerRight from 'assets/images/landing/customization-right.png';
+import SkeletonTotalIncomeCard from 'ui-component/cards/Skeleton/TotalIncomeCard';
+import MainCard from 'ui-component/cards/MainCard';
+import { gridSpacing } from 'store/constant';
 
 // ==============================|| LANDING - CUSTOMIZE ||============================== //
 
@@ -35,129 +33,27 @@ const CustomizeSection = () => {
             }}
         >
             <Grid container justifyContent="space-between" alignItems="center" spacing={{ xs: 1.5, sm: 2.5, md: 3, lg: 5 }}>
-                <Grid item xs={12} md={6} sx={{ img: { width: '100%' } }}>
-                    <Stack sx={{ width: '75%', mb: 5, mx: 'auto' }}>
-                        <CardMedia component="img" image={LayerLeft} alt="Layer" />
-                    </Stack>
-                </Grid>
-                <Grid item xs={12} md={6}>
-                    <Grid container spacing={2.5}>
-                        <Grid item xs={12}>
-                            <Typography variant="h5" sx={{ fontSize: { xs: '1.5rem', sm: '2.125rem' }, mb: 2 }}>
-                                Easy Developer Experience
-                            </Typography>
-                            <Typography
-                                variant="subtitle2"
-                                color="text.primary"
-                                sx={{
-                                    fontSize: '1rem',
-                                    zIndex: '99',
-                                    width: { xs: '100%', sm: '100%', md: 'calc(100% - 20%)' }
-                                }}
-                            >
-                                Berry has made it easy for developers of any skill level to use their product.
-                            </Typography>
-                        </Grid>
-                        <Grid item xs={12}>
-                            <Typography sx={listSX}>
-                                <IconCircleCheck size={20} />A straightforward and simple folder structure.
-                            </Typography>
-                            <Typography sx={listSX}>
-                                <IconCircleCheck size={20} />
-                                Code that is organized in a clear and logical manner.
-                            </Typography>
-                            <Typography sx={listSX}>
-                                <IconCircleCheck size={20} />
-                                Setting up Typography and Color schemes is easy and effortless.
-                            </Typography>
-                            <Typography sx={listSX}>
-                                <IconCircleCheck size={20} />
-                                Multiple layout options that can be easily adjusted.
-                            </Typography>
-                            <Typography sx={listSX}>
-                                <IconCircleCheck size={20} />A theme that can be easily configured on a single page.
-                            </Typography>
-                            {/* <Stack direction="row">
-                                <AnimateButton>
-                                    <Button
-                                        startIcon={<LayersTwoToneIcon />}
-                                        sx={{ boxShadow: 'none', my: 4 }}
-                                        variant="contained"
-                                        component={RouterLink}
-                                        to="/components/autocomplete"
-                                        target="_blank"
-                                    >
-                                        View All Components
-                                    </Button>
-                                </AnimateButton>
-                            </Stack> */}
-                        </Grid>
-                    </Grid>
-                </Grid>
-                <Grid item xs={12}>
-                    <Grid container spacing={2.5} direction={{ xs: 'column-reverse', md: 'row' }}>
-                        <Grid item xs={12} md={6}>
-                            <Grid container spacing={2.5}>
-                                <Grid item xs={12}>
-                                    <Typography variant="h2" sx={{ fontSize: { xs: '1.5rem', sm: '2.125rem' }, mb: 2 }}>
-                                        Figma Design System
-                                    </Typography>
-                                    <Typography
-                                        variant="subtitle2"
-                                        color="text.primary"
-                                        sx={{
-                                            fontSize: '1rem',
-                                            zIndex: '99',
-                                            width: { xs: '100%', md: 'calc(100% - 20%)' }
-                                        }}
-                                    >
-                                        Streamlining the development process and saving you time and effort in the initial design phase.
-                                    </Typography>
-                                </Grid>
-                                <Grid item xs={12}>
-                                    <Typography sx={listSX}>
-                                        <IconCircleCheck size={20} />
-                                        Professional Kit for Designer
-                                    </Typography>
-                                    <Typography sx={listSX}>
-                                        <IconCircleCheck size={20} />
-                                        Properly Organised Pages
-                                    </Typography>
-                                    <Typography sx={listSX}>
-                                        <IconCircleCheck size={20} />
-                                        Dark/Light Design
-                                    </Typography>
-                                    <Typography sx={listSX}>
-                                        <IconCircleCheck size={20} />
-                                        *Figma file included only in Plus & Extended Licenses.
-                                    </Typography>
-                                    <Typography sx={listSX}>
-                                        <IconCircleCheck size={20} />A theme that can be easily configured on a single page.
-                                    </Typography>
-                                    <Stack direction="row">
-                                        <AnimateButton>
-                                            <Button
-                                                startIcon={<LayersTwoToneIcon />}
-                                                sx={{ boxShadow: 'none', my: 4 }}
-                                                variant="contained"
-                                                component={Link}
-                                                href="https://www.figma.com/file/2u2TmauA6lanVMYiywzS1o/berry-figma-v3.0?node-id=0%3A1"
-                                                target="_blank"
-                                            >
-                                                Explore Figma
-                                            </Button>
-                                        </AnimateButton>
-                                    </Stack>
-                                </Grid>
-                            </Grid>
-                        </Grid>
-                        <Grid item xs={12} md={6} sx={{ img: { width: '100%' } }}>
-                            <Stack sx={{ width: '70%', mx: 'auto' }}>
-                                <CardMedia component="img" image={LayerRight} alt="Layer" />
+                <MainCard content={false} sx={{ marginLeft: 2, marginTop: 8 }}>
+                    <CardContent>
+                        <Grid item xs={12} md={12} sx={{ img: { width: '100%' }, marginTop: 5, marginBottom: 10, paddingRight: 5 }}>
+                            <Stack sx={{ width: '90%', mx: 'auto' }}>
+                                <CardMedia component="img" image={homepageImg} alt="Layer" />
                             </Stack>
                         </Grid>
-                    </Grid>
-                </Grid>
+                        <Grid item xs={12}>
+                            <SubCard>
+                                <Grid container spacing={gridSpacing}>
+                                    <Grid item xs={12}>
+                                        <SkeletonTotalIncomeCard />
+                                    </Grid>
+                                    <Grid item xs={12}>
+                                        <SkeletonTotalIncomeCard />
+                                    </Grid>
+                                </Grid>
+                            </SubCard>
+                        </Grid>
+                    </CardContent>
+                </MainCard>
             </Grid>
         </Container>
     );

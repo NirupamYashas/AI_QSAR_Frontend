@@ -5,7 +5,6 @@ import { useTheme } from '@mui/material/styles';
 import { AppBar, Box, IconButton, ClickAwayListener, Grid, Paper, Popper, Toolbar, useMediaQuery } from '@mui/material';
 
 // project imports
-import LocalizationSection from '../LocalizationSection';
 import Transitions from 'ui-component/extended/Transitions';
 
 // assets
@@ -92,7 +91,7 @@ const MobileSection = () => {
                                     >
                                         <Toolbar sx={{ pt: 2.75, pb: 2.75 }}>
                                             <Grid container justifyContent={matchMobile ? 'space-between' : 'flex-end'} alignItems="center">
-                                                <LocalizationSection />
+                                                {/* <LocalizationSection /> */}
                                             </Grid>
                                         </Toolbar>
                                     </AppBar>

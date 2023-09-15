@@ -6,12 +6,8 @@ import Loadable from 'ui-component/Loadable';
 import AuthGuard from 'utils/route-guard/AuthGuard';
 
 // dashboard routing
-const DashboardDefault = Loadable(lazy(() => import('views/dashboard/Default')));
-const DashboardAnalytics = Loadable(lazy(() => import('views/dashboard/Analytics')));
-
-// pricing page routing
-const PagesPrice1 = Loadable(lazy(() => import('views/pages/pricing/Price1')));
-const PagesPrice2 = Loadable(lazy(() => import('views/pages/pricing/Price2')));
+const DashboardSamplePage = Loadable(lazy(() => import('views/dashboard/sample-page')));
+const DashboardFileInputPage = Loadable(lazy(() => import('views/dashboard/file-input')));
 
 // ==============================|| MAIN ROUTING ||============================== //
 
@@ -24,20 +20,12 @@ const MainRoutes = {
     ),
     children: [
         {
-            path: '/pages/price/price1',
-            element: <PagesPrice1 />
+            path: '/dashboard/sample-page',
+            element: <DashboardSamplePage />
         },
         {
-            path: '/pages/price/price2',
-            element: <PagesPrice2 />
-        },
-        {
-            path: '/dashboard/default',
-            element: <DashboardDefault />
-        },
-        {
-            path: '/dashboard/analytics',
-            element: <DashboardAnalytics />
+            path: '/dashboard/file-input',
+            element: <DashboardFileInputPage />
         }
     ]
 };

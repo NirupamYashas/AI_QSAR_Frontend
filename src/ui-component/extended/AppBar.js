@@ -24,6 +24,7 @@ import {
 
 // project imports
 import Logo from 'ui-component/Logo';
+import ufLogo from 'assets/images/phhp.png';
 
 // assets
 import { IconBook, IconCreditCard, IconDashboard, IconHome2 } from '@tabler/icons';
@@ -76,22 +77,24 @@ const AppBar = ({ ...others }) => {
                             <Button color="inherit" component={Link} href="#">
                                 Home
                             </Button>
-                            <Button color="inherit" component={RouterLink} to="/login" target="_blank">
-                                Dashboard
+                            <Button component={RouterLink} to="/login" disableElevationb variant="contained" color="secondary">
+                                Model Simulation
                             </Button>
-                            <Button color="inherit" component={Link} href="https://codedthemes.gitbook.io/berry" target="_blank">
-                                Documentation
+                            <Button component={RouterLink} to="/login" disableElevation variant="contained" color="secondary">
+                                Model Prediction
                             </Button>
                             <Button
+                                color="inherit"
                                 component={Link}
-                                href="https://links.codedthemes.com/hsqll"
-                                disableElevation
-                                variant="contained"
-                                color="secondary"
+                                href="https://drive.google.com/file/d/1Cz4vNalCz2vo3BFpo6KCtTWWkF2Ibz0T/view?usp=sharing"
+                                target="_blank"
                             >
-                                Purchase Now
+                                Tutorial
                             </Button>
                         </Stack>
+                        <Typography component="div" sx={{ flexGrow: 0.1, textAlign: 'right' }}>
+                            <img src={ufLogo} alt="UF-LOGO" height="35" />
+                        </Typography>
                         <Box sx={{ display: { xs: 'block', sm: 'none' } }}>
                             <IconButton color="inherit" onClick={drawerToggler(true)} size="large">
                                 <MenuIcon />

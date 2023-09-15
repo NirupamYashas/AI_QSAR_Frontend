@@ -1,6 +1,7 @@
 {
     "dashboard": "Dashboard",
     "default": "Default",
+    "fileinput": "File input",
     "analytics": "Analytics",
 
     "widget": "Widget",
