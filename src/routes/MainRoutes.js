@@ -8,6 +8,7 @@ import AuthGuard from 'utils/route-guard/AuthGuard';
 // dashboard routing
 const DashboardSamplePage = Loadable(lazy(() => import('views/dashboard/sample-page')));
 const DashboardFileInputPage = Loadable(lazy(() => import('views/dashboard/file-input')));
+const DashboardSingleInputPage = Loadable(lazy(() => import('views/dashboard/single-input')));
 
 // ==============================|| MAIN ROUTING ||============================== //
 
@@ -22,6 +23,10 @@ const MainRoutes = {
         {
             path: '/dashboard/sample-page',
             element: <DashboardSamplePage />
+        },
+        {
+            path: '/dashboard/single-input',
+            element: <DashboardSingleInputPage />
         },
         {
             path: '/dashboard/file-input',

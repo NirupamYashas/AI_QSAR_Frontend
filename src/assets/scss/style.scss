@@ -191,3 +191,31 @@
 .ReactModal__Overlay {
     z-index: 99999 !important;
 }
+
+.predicted-container {
+    text-align: center; /* Center-align the text */
+    animation: fade-in 1s ease-in-out; /* CSS animation */
+}
+
+.predicted-label {
+    font-size: 24px; /* Adjust the font size as needed */
+    padding: 8px 16px; /* Padding around the text */
+}
+
+.predicted-value {
+    font-size: 24px; /* Adjust the font size as needed */
+    border: 2px solid #42a5f5; /* Border style */
+    border-radius: 20px; /* Rounded corners */
+    padding: 8px 16px; /* Padding around the text */
+    background-color: #e3f2fd; /* Background color */
+}
+
+@keyframes fade-in {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+

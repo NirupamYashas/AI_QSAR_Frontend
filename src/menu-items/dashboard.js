@@ -17,11 +17,19 @@ const dashboard = {
     icon: icons.IconDashboard,
     type: 'group',
     children: [
+        // {
+        //     id: 'default',
+        //     title: <FormattedMessage id="default" />,
+        //     type: 'item',
+        //     url: '/dashboard/sample-page',
+        //     icon: icons.IconDashboard,
+        //     breadcrumbs: false
+        // },
         {
-            id: 'default',
-            title: <FormattedMessage id="default" />,
+            id: 'singleinput',
+            title: <FormattedMessage id="singleinput" />,
             type: 'item',
-            url: '/dashboard/sample-page',
+            url: '/dashboard/single-input',
             icon: icons.IconDashboard,
             breadcrumbs: false
         },
