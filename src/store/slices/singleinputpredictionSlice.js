@@ -3,9 +3,9 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'utils/axios';
 
 const initialState = {
-    casNumber: '',
-    selectedSpecies: '',
-    predictedValue: null
+    CAS: '',
+    Species: '',
+    LambdaZHl: null
 };
 
 const predictionSlice = createSlice({
@@ -17,25 +17,25 @@ const predictionSlice = createSlice({
         },
 
         setSelectedSpecies: (state, action) => {
-            state.selectedSpecies = action.payload;
+            state.Species = action.payload;
         },
 
         setPredictedValue: (state, action) => {
-            state.predictedValue = action.payload;
+            state.LambdaZHl = action.payload;
         },
 
         resetPredictionData: (state) => {
-            state.casNumber = initialState.casNumber;
-            state.selectedSpecies = initialState.selectedSpecies;
-            state.predictedValue = initialState.predictedValue;
+            state.CAS = initialState.CAS;
+            state.Species = initialState.Species;
+            state.LambdaZHl = initialState.LambdaZHl;
         }
     }
 });
 
 export const { setCasNumber, setSelectedSpecies, setPredictedValue, resetPredictionData } = predictionSlice.actions;
 
-export const selectCasNumber = (state) => state.prediction.casNumber;
-export const selectSelectedSpecies = (state) => state.prediction.selectedSpecies;
+export const selectCasNumber = (state) => state.prediction.CAS;
+export const selectSelectedSpecies = (state) => state.prediction.Species;
 
 export default predictionSlice.reducer;
 
@@ -46,7 +46,7 @@ export const predictHalfLife = createAsyncThunk('predictHalfLife', async (formDa
     try {
         console.log(formData);
         // Make the API call here using formData
-        const response = await axios.post('http://localhost:8000/', formData);
+        const response = await axios.post('http://localhost:8000/single-input', formData);
         console.log(response.data);
         dispatch(setPredictedValue(response.data));
         return response.data;

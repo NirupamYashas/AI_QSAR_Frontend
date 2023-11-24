@@ -15,7 +15,8 @@ import userReducer from './slices/user';
 import cartReducer from './slices/cart';
 import kanbanReducer from './slices/kanban';
 import menuReducer from './slices/menu';
-import predictHalfLifeReducer from './slices/predictionSlice';
+import predictHalfLifeReducer from './slices/singleinputpredictionSlice';
+import predictFileHalfLifeReducer from './slices/fileinputpredictionSlice';
 
 // ==============================|| COMBINE REDUCER ||============================== //
 
@@ -38,7 +39,8 @@ const reducer = combineReducers({
     mail: mailReducer,
     user: userReducer,
     menu: menuReducer,
-    prediction: predictHalfLifeReducer
+    prediction: predictHalfLifeReducer,
+    predictionfile: predictFileHalfLifeReducer
 });
 
 export default reducer;

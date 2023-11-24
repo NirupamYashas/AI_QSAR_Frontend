@@ -3,7 +3,7 @@ import { Typography, Button, Box, FormControl, InputLabel, Select, MenuItem, Tex
 import MainCard from 'ui-component/cards/MainCard';
 import { fetchAndProcessData } from './drugData';
 import { useDispatch, useSelector } from 'store';
-import { predictHalfLife, resetPredictionData } from 'store/slices/predictionSlice';
+import { predictHalfLife, resetPredictionData } from 'store/slices/singleinputpredictionSlice';
 
 const speciesData = [
     { id: 1, name: 'Cattle' },
@@ -16,9 +16,22 @@ const speciesData = [
 
 const SamplePage = () => {
     const dispatch = useDispatch();
-
     // Redux selector to access data from the store
     const predictionData = useSelector((state) => state.prediction);
+    // const [isDataAvailable, setIsDataAvailable] = useState(false);
+
+    // useEffect(() => {
+    //     if (predictionData[0] && predictionData[0].LambdaZHl !== undefined) {
+    //         setIsDataAvailable(true);
+    //     }
+    // }, [predictionData]);
+    // Add an effect to monitor changes in predictionData
+    // useEffect(() => {
+    //     if (predictionData.length > 0) {
+    //         const firstPrediction = predictionData[0];
+    //         console.log(firstPrediction);
+    //     }
+    // }, [predictionData]);
 
     const [selectedDrug, setSelectedDrug] = useState('');
     const [selectedSpecies, setSelectedSpecies] = useState('');
@@ -65,10 +78,7 @@ const SamplePage = () => {
 
     const handlePredictHalfLife = async (event) => {
         event.preventDefault();
-        const formData = {
-            casNumber,
-            selectedSpecies
-        };
+        const formData = { CAS: casNumber, Species: selectedSpecies };
 
         console.log(formData);
 
@@ -145,12 +155,12 @@ const SamplePage = () => {
             </Box>
 
             {/* Conditional rendering to display the response data */}
-            {predictionData.predictedValue && (
+            {predictionData.LambdaZHl && (
                 <Box marginTop={2} className="predicted-container">
                     <Typography variant="h6" className="predicted-label">
                         Predicted Half Life:
                     </Typography>
-                    <Typography className="predicted-value">{predictionData.predictedValue}</Typography>
+                    <Typography className="predicted-value">{`${predictionData.LambdaZHl} hrs`}</Typography>
                 </Box>
             )}
         </MainCard>
