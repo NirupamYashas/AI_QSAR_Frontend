@@ -1,30 +1,24 @@
-FROM node:16-alpine as builder
+FROM node:14.14.0-alpine as builder
 
-ENV NODE_ENV=production
-
-WORKDIR /client
+WORKDIR /usr/src/client
 
 COPY package.json .
-COPY yarn.lock .
+# COPY package-lock.json .
 
-RUN yarn install --production --frozen-lockfile --legacy-peer-deps
+RUN npm install
 
 COPY . .
 
+RUN npm run build
+
+FROM nginx 
 EXPOSE 3000
+COPY ./nginx/aiqsar.conf /etc/nginx/conf.d/aiqsar.conf
+COPY ./nginx/nginx.conf /etc/nginx/nginx.conf
+#
+# COPY ./certs/devopsbyexample.pem /etc/nginx/certs/devopsbyexample.pem
+# COPY ./certs/devopsbyexample-key.pem /etc/nginx/certs/devopsbyexample-key.pem
+#
+COPY --from=builder /usr/src/client/build /usr/share/nginx/html
 
-CMD ["yarn", "start"]
-
-# RUN npm run build
-
-# FROM nginx 
-# EXPOSE 3000
-# COPY ./nginx/aipbpk.conf /etc/nginx/conf.d/aipbpk.conf
-# COPY ./nginx/nginx.conf /etc/nginx/nginx.conf
-# #
-# # COPY ./certs/devopsbyexample.pem /etc/nginx/certs/devopsbyexample.pem
-# # COPY ./certs/devopsbyexample-key.pem /etc/nginx/certs/devopsbyexample-key.pem
-# #
-# COPY --from=builder client/build /usr/share/nginx/html
-
-# CMD ["nginx", "-g", "daemon off;"]
+CMD ["nginx", "-g", "daemon off;"]

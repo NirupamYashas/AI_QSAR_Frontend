@@ -35,7 +35,7 @@ export const predictHalfLife = createAsyncThunk('predictHalfLife', async (formDa
     try {
         console.log(formData);
         // Make the API call here using formData
-        const response = await axios.post('http://localhost:8000/file-input', formData);
+        const response = await axios.post(`${process.env.REACT_APP_API_URL}file-input`, formData);
         console.log(response.data);
         // dispatch(setPredictedValue(response.data[0].LambdaZHl));
         dispatch(addPredictionData(response.data));
