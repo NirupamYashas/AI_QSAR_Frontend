@@ -38,12 +38,12 @@ const App = () => {
             <RTLLayout>
                 <Locales>
                     <NavigationScroll>
-                        <AuthProvider>
-                            <>
-                                <Routes />
-                                <Snackbar />
-                            </>
-                        </AuthProvider>
+                        {/* <AuthProvider> */}
+                        <>
+                            <Routes />
+                            <Snackbar />
+                        </>
+                        {/* </AuthProvider> */}
                     </NavigationScroll>
                 </Locales>
             </RTLLayout>
