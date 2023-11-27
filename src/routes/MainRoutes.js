@@ -15,9 +15,9 @@ const DashboardSingleInputPage = Loadable(lazy(() => import('views/dashboard/sin
 const MainRoutes = {
     path: '/',
     element: (
-        <AuthGuard>
-            <MainLayout />
-        </AuthGuard>
+        // <AuthGuard>
+        <MainLayout />
+        // </AuthGuard>
     ),
     children: [
         {
