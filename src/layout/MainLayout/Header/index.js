@@ -72,7 +72,7 @@ const Header = () => {
             <Box sx={{ flexGrow: 1 }} />
 
             {/* profile */}
-            <ProfileSection />
+            {/* <ProfileSection /> */}
 
             {/* mobile header */}
             <Box sx={{ display: { xs: 'block', sm: 'none' } }}>
