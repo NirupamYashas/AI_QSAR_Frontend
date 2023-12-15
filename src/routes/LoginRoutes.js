@@ -17,9 +17,9 @@ const LoginRoutes = {
     path: '/',
     element: (
         <NavMotion>
-            <GuestGuard>
-                <MinimalLayout />
-            </GuestGuard>
+            {/* <GuestGuard> */}
+            <MinimalLayout />
+            {/* </GuestGuard> */}
         </NavMotion>
     ),
     children: [
