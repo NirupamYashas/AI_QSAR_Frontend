@@ -19,7 +19,7 @@ const predictionfileSlice = createSlice({
         },
 
         resetPredictionData: (state) => {
-            state.prediction = initialState;
+            state.length = 0; // Clearing the array
         }
     }
 });
@@ -43,6 +43,8 @@ export const predictHalfLife = createAsyncThunk('predictHalfLife', async (formDa
         return response.data;
     } catch (error) {
         // Handle API call errors here
-        return rejectWithValue(error.message);
+        // Check if the error response has a data property with a message
+        const errorMessage = error.response && error.response.data && error.response.data.error ? error.response.data.error : error.message;
+        return rejectWithValue(errorMessage);
     }
 });

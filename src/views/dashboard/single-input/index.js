@@ -7,11 +7,11 @@ import { predictHalfLife, resetPredictionData } from 'store/slices/singleinputpr
 
 const speciesData = [
     { id: 1, name: 'Cattle' },
-    { id: 2, name: 'Chicken' },
+    { id: 2, name: 'Chickens' },
     { id: 3, name: 'Goats' },
     { id: 4, name: 'Sheep' },
     { id: 5, name: 'Swine' },
-    { id: 6, name: 'Turkey' }
+    { id: 6, name: 'Turkeys' }
 ];
 
 const SamplePage = () => {

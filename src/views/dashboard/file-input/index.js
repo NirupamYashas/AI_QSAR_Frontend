@@ -3,6 +3,7 @@ import {
     Typography,
     Button,
     CircularProgress,
+    LinearProgress,
     Box,
     Table,
     TableContainer,
@@ -10,13 +11,17 @@ import {
     TableBody,
     TableRow,
     TableCell,
-    Paper
+    Paper,
+    IconButton
 } from '@mui/material';
 import MainCard from 'ui-component/cards/MainCard';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import Papa from 'papaparse';
 import { useDispatch, useSelector } from 'store';
 import { predictHalfLife, resetPredictionData } from 'store/slices/fileinputpredictionSlice';
+import Alert from '@mui/material/Alert';
+import Collapse from '@mui/material/Collapse';
+import CloseIcon from '@mui/icons-material/Close';
 
 // ==============================|| SAMPLE PAGE ||============================== //
 
@@ -25,6 +30,7 @@ const FileInputPage = () => {
 
     // Redux selector to access data from the store
     const predictionData = useSelector((state) => state.predictionfile);
+    const predictionError = useSelector((state) => state.predictionfile.error);
 
     const [isDragging, setIsDragging] = useState(false);
     const [selectedFile, setSelectedFile] = useState(null);
@@ -32,6 +38,18 @@ const FileInputPage = () => {
     const [uploadComplete, setUploadComplete] = useState(false);
     const [parsedData, setParsedData] = useState(null);
     const [tableData, setTableData] = useState([]);
+    const [alertMessage, setAlertMessage] = useState('');
+
+    const [timer, setTimer] = useState(null);
+    const [countdown, setCountdown] = useState(0);
+
+    useEffect(() => {
+        if (predictionError) {
+            setAlertMessage(predictionError);
+        }
+    }, [predictionError]);
+
+    const MAX_FILE_SIZE = 5 * 1024 * 1024;
 
     // New state to manage loading state
     const [loading, setLoading] = useState(false);
@@ -59,21 +77,38 @@ const FileInputPage = () => {
         setIsDragging(false);
     };
 
+    const handleFileSelection = (file) => {
+        if (file.size > MAX_FILE_SIZE) {
+            setAlertMessage('File size exceeds the maximum limit of 5MB.');
+            return;
+        }
+        setSelectedFile(file);
+        setUploading(false);
+        setUploadComplete(false);
+        setLoading(false);
+        console.log('Selected file:', file);
+    };
+
     const handleDrop = (e) => {
         e.preventDefault();
         setIsDragging(false);
 
         const file = e.dataTransfer.files[0];
-        setSelectedFile(file);
+        handleFileSelection(file);
+        // setSelectedFile(file);
         // Handle the dropped file here
-        console.log('Dropped file:', file);
+        // console.log('Dropped file:', file);
     };
 
     const handleFileInputChange = (e) => {
         const file = e.target.files[0];
-        setSelectedFile(file);
-        // Handle the selected file here
-        console.log('Selected file:', file);
+        handleFileSelection(file);
+        // if (file.size > MAX_FILE_SIZE) {
+        //     alert('File size exceeds the maximum limit of 5MB.');
+        //     return;
+        // }
+        // setSelectedFile(file);
+        // console.log('Selected file:', file);
     };
 
     const handleUpload = () => {
@@ -81,34 +116,102 @@ const FileInputPage = () => {
             setLoading(true);
             setUploading(true);
 
-            // Use FileReader to read the content of the uploaded file as text
             const reader = new FileReader();
             reader.onload = (event) => {
                 const csvText = event.target.result;
-
-                // Parse the CSV file using PapaParse
                 Papa.parse(csvText, {
                     header: true,
                     dynamicTyping: true,
                     complete: (results) => {
-                        console.log(results.data); // Print the parsed data as an array of objects
-                        setParsedData(results.data); // Store the parsed data in the state
-                        // Dispatch the predictHalfLife action with the form data
+                        // Normalize fields to lowercase for flexible comparison
+                        const normalizedFields = results.meta.fields.map((field) => field.toLowerCase());
+                        // const hasRequiredColumns = normalizedFields.includes('cas') && normalizedFields.includes('species');
+                        const hasRequiredColumns = results.meta.fields.includes('CAS') && results.meta.fields.includes('Species');
+                        if (!hasRequiredColumns) {
+                            setAlertMessage('Invalid file format. Please ensure the file contains "CAS" and "Species" as column names.');
+                            setUploading(false);
+                            setUploadComplete(false);
+                            setLoading(false);
+                            return;
+                        }
+
+                        // Start the countdown after file parsing
+                        const estimatedSeconds = results.data.length * 1; // Example: 1 second per row
+                        setCountdown(estimatedSeconds);
+                        setTimer(
+                            setInterval(() => {
+                                setCountdown((prevCountdown) => (prevCountdown > 0 ? prevCountdown - 1 : 0));
+                            }, 1000)
+                        );
+
                         dispatch(predictHalfLife(results.data));
-                        setUploading(false);
+                        setUploading(false); // Set uploading to false after parsing is done
+                        setUploadComplete(true);
+                    },
+                    error: () => {
+                        setAlertMessage('Error parsing the file. Please check the file format.');
+                        setLoading(false);
+                        setUploading(false); // Set uploading to false in case of error
+                        setUploadComplete(false);
                     }
                 });
+            };
 
-                setUploading(false);
-                setUploadComplete(true);
+            reader.onerror = () => {
+                setAlertMessage('Error reading the file.');
+                setLoading(false);
+                setUploading(false); // Set uploading to false in case of FileReader error
+                setUploadComplete(false);
             };
 
             reader.readAsText(selectedFile);
         }
     };
 
+    useEffect(() => {
+        // Stop and reset the timer when the table is loaded or an error occurs
+        if ((!uploading && uploadComplete) || predictionError) {
+            clearInterval(timer);
+            setCountdown(0);
+        }
+    }, [uploading, uploadComplete, predictionError, timer]);
+
+    const handleReset = () => {
+        // Resetting all relevant states
+        setSelectedFile(null);
+        setUploading(false);
+        setUploadComplete(false);
+        setLoading(false);
+        setParsedData(null);
+        setTableData([]);
+        setAlertMessage('');
+        setCountdown(0);
+
+        // Clearing any running timers
+        if (timer) {
+            clearInterval(timer);
+            setTimer(null);
+        }
+
+        // Reset the redux store prediction data (if necessary)
+        dispatch(resetPredictionData());
+    };
+
     return (
         <MainCard title="Model Prediction">
+            <Collapse in={!!alertMessage}>
+                <Alert
+                    severity="error"
+                    sx={{ mb: 2, mt: 2 }}
+                    action={
+                        <IconButton aria-label="close" color="inherit" size="small" onClick={() => setAlertMessage('')}>
+                            <CloseIcon fontSize="inherit" />
+                        </IconButton>
+                    }
+                >
+                    {alertMessage}
+                </Alert>
+            </Collapse>
             <div
                 style={{
                     border: isDragging ? '2px dashed #007bff' : '2px dashed #ccc',
@@ -126,6 +229,10 @@ const FileInputPage = () => {
                     <strong>File Input</strong>
                 </Typography>
                 <Typography variant="body2">Drag and drop files here or click to upload</Typography>
+                <Typography variant="body2" sx={{ mt: 1 }}>
+                    Please upload a CSV file containing columns: &apos;CAS&apos; and &apos;Species&apos;. Maximum Limit on Number of rows:
+                    300
+                </Typography>
 
                 {/* Choose Files button */}
                 <Box marginTop="16px">
@@ -149,6 +256,15 @@ const FileInputPage = () => {
                     </Box>
                 )}
 
+                {/* Reset Button - Visible once a file is selected */}
+                {selectedFile && (
+                    <Box mt={2}>
+                        <Button variant="outlined" color="secondary" onClick={handleReset}>
+                            Reset
+                        </Button>
+                    </Box>
+                )}
+
                 {uploading && (
                     <Box marginTop="16px">
                         <CircularProgress size={24} color="primary" />
@@ -162,6 +278,13 @@ const FileInputPage = () => {
                     <Box marginTop="16px">
                         <CheckCircleOutlineIcon sx={{ color: 'green', marginRight: 1 }} />
                         <Typography variant="subtitle1">Upload Complete</Typography>
+                    </Box>
+                )}
+
+                {/* Display the countdown timer */}
+                {countdown > 0 && (
+                    <Box mt={2}>
+                        <Typography variant="body2"> Estimated processing time: {countdown} seconds </Typography>
                     </Box>
                 )}
 

@@ -2,11 +2,13 @@
 import { FormattedMessage } from 'react-intl';
 
 // assets
-import { IconDashboard, IconDeviceAnalytics } from '@tabler/icons';
+import { IconDashboard, IconDeviceAnalytics, IconFolder, IconTimeline } from '@tabler/icons';
 
 const icons = {
     IconDashboard,
-    IconDeviceAnalytics
+    IconDeviceAnalytics,
+    IconFolder,
+    IconTimeline
 };
 
 // ==============================|| MENU ITEMS - DASHBOARD ||============================== //
@@ -30,7 +32,7 @@ const dashboard = {
             title: <FormattedMessage id="singleinput" />,
             type: 'item',
             url: '/dashboard/single-input',
-            icon: icons.IconDashboard,
+            icon: icons.IconTimeline,
             breadcrumbs: false
         },
         {
@@ -38,7 +40,7 @@ const dashboard = {
             title: <FormattedMessage id="fileinput" />,
             type: 'item',
             url: '/dashboard/file-input',
-            icon: icons.IconDeviceAnalytics,
+            icon: icons.IconFolder,
             breadcrumbs: false
         }
     ]
