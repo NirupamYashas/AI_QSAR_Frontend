@@ -92,7 +92,7 @@ const AppBar = ({ ...others }) => {
                             <Button
                                 color="inherit"
                                 component={Link}
-                                href="https://drive.google.com/file/d/1Cz4vNalCz2vo3BFpo6KCtTWWkF2Ibz0T/view?usp=sharing"
+                                href="https://drive.google.com/file/d/1TBoz2113X_NGNB-N-02GvPKtEbvkAIku/view?usp=sharing"
                                 target="_blank"
                             >
                                 Tutorial
@@ -122,7 +122,7 @@ const AppBar = ({ ...others }) => {
                                                     <ListItemText primary="Home" />
                                                 </ListItemButton>
                                             </Link>
-                                            <Link style={{ textDecoration: 'none' }} href="/login" target="_blank">
+                                            <Link style={{ textDecoration: 'none' }} href="/dashboard/single-input" target="_blank">
                                                 <ListItemButton component="a">
                                                     <ListItemIcon>
                                                         <IconDashboard />
@@ -132,7 +132,7 @@ const AppBar = ({ ...others }) => {
                                             </Link>
                                             <Link
                                                 style={{ textDecoration: 'none' }}
-                                                href="https://codedthemes.gitbook.io/berry"
+                                                href="https://drive.google.com/file/d/1TBoz2113X_NGNB-N-02GvPKtEbvkAIku/view?usp=sharing"
                                                 target="_blank"
                                             >
                                                 <ListItemButton component="a">
@@ -140,18 +140,6 @@ const AppBar = ({ ...others }) => {
                                                         <IconBook />
                                                     </ListItemIcon>
                                                     <ListItemText primary="Documentation" />
-                                                </ListItemButton>
-                                            </Link>
-                                            <Link
-                                                style={{ textDecoration: 'none' }}
-                                                href="https://links.codedthemes.com/hsqll"
-                                                target="_blank"
-                                            >
-                                                <ListItemButton component="a">
-                                                    <ListItemIcon>
-                                                        <IconCreditCard />
-                                                    </ListItemIcon>
-                                                    <ListItemText primary="Purchase Now" />
                                                 </ListItemButton>
                                             </Link>
                                         </List>
