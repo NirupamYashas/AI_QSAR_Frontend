@@ -231,7 +231,7 @@ const FileInputPage = () => {
                 <Typography variant="body2">Drag and drop files here or click to upload</Typography>
                 <Typography variant="body2" sx={{ mt: 1 }}>
                     Please upload a CSV file containing columns: &apos;CAS&apos; and &apos;Species&apos;. Maximum Limit on Number of rows:
-                    300
+                    35
                 </Typography>
 
                 {/* Choose Files button */}
