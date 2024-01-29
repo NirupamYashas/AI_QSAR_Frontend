@@ -3,6 +3,7 @@
     "default": "Default",
     "singleinput": "Single input",
     "fileinput": "File input",
+    "originaldata": "Original Data",
     "analytics": "Analytics",
 
     "widget": "Widget",

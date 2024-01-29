@@ -21,7 +21,6 @@ const icons = {
 const pages = {
     id: 'pages',
     title: <FormattedMessage id="pages" />,
-    caption: <FormattedMessage id="pages-caption" />,
     icon: icons.IconKey,
     type: 'group',
     children: [

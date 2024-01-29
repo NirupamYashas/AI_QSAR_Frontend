@@ -225,13 +225,15 @@ const FileInputPage = () => {
                 onDragOver={(e) => e.preventDefault()}
                 onDrop={handleDrop}
             >
-                <Typography variant="h4">
+                <Typography variant="h4" sx={{ mb: 2 }}>
                     <strong>File Input</strong>
                 </Typography>
                 <Typography variant="body2">Drag and drop files here or click to upload</Typography>
                 <Typography variant="body2" sx={{ mt: 1 }}>
-                    Please upload a CSV file containing columns: &apos;CAS&apos; and &apos;Species&apos;. Maximum Limit on Number of rows:
-                    35
+                    Please upload a CSV file containing columns: &apos;<strong>CAS</strong>&apos; and &apos;<strong>Species</strong>&apos;.
+                </Typography>
+                <Typography variant="body2" sx={{ mt: 1 }}>
+                    Maximum Limit on Number of rows: <strong>35</strong>
                 </Typography>
 
                 {/* Choose Files button */}
